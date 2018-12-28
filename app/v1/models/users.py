@@ -56,3 +56,7 @@ class UserModel(BaseModel):
 
         return [user for user in users
                 if getattr(user, 'id') == id][0]
+
+    @classmethod
+    def get_all_users(cls):
+        return [user.dictify() for user in users]

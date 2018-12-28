@@ -1,16 +1,14 @@
 import flask
 from flask import Blueprint, request, make_response, jsonify
-from flask.views import MethodView
 
-
-from v1.utils.helper import verify_email, validate_json
+from v1.utils.helper import verify_email, validate_json_header
 from v1.models.users import UserModel
 
 auth = Blueprint('auth', __name__, url_prefix='api/v1/auth/')
 
 
 @auth.route('register', methods=['POST', 'GET'])
-@validate_json
+@validate_json_header
 def register_user():
     """
     Registers new users and returns a list of
@@ -41,3 +39,5 @@ def register_user():
         return make_response(jsonify(
             "\nPlease Provide a valid email.\
             \nEnsure password is has at least 5 characters\nCool?")), 400
+
+    return make_response(jsonify(UserModel.get_all_users()))
