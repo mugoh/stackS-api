@@ -46,6 +46,12 @@ class UserModel(BaseModel):
                 if getattr(user, 'username') == title][0]
 
     @classmethod
+    def get_by_email(cls, email):
+
+        return [user for user in users
+                if getattr(user, 'email') == email][0]
+
+    @classmethod
     def get_by_id(cls, id):
 
         return [user for user in users
