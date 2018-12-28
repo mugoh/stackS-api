@@ -6,7 +6,7 @@ from flask.views import MethodView
 from v1.utils.helper import verify_email, validate_json
 from v1.models.users import UserModel
 
-auth = Blueprint(auth, __name__, url_prefix='api/v1/auth/')
+auth = Blueprint('auth', __name__, url_prefix='api/v1/auth/')
 
 
 @auth.route('register', methods=['POST', 'GET'])
