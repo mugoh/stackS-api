@@ -13,19 +13,7 @@ class UserModel(BaseModel):
         self.password = password
 
     def save(self):
-        users.append(self.dictify())
-
-    @classmethod
-    def get_by_name(cls, title):
-
-        return [user for user in users
-                if user['username'] == title][0]
-
-    @classmethod
-    def get_by_id(cls, id):
-
-        return [user for user in users
-                if user['id'] == id][0]
+        users.append(self)
 
     def dictify(self):
 
@@ -33,3 +21,19 @@ class UserModel(BaseModel):
                 'email': self.email,
                 'password': self.password
                 }
+
+    def __repr__(self):
+        return '{username} {email}'.format(
+            self.dictify())
+
+    @classmethod
+    def get_by_name(cls, title):
+
+        return [user for user in users
+                if getattr(user, 'username') == title][0]
+
+    @classmethod
+    def get_by_id(cls, id):
+
+        return [user for user in users
+                if getattr(user, 'id') == id][0]
