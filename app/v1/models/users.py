@@ -1,3 +1,5 @@
+from werkzeug.security import generate_password_hash, check_password_hash
+
 from base_model import BaseModel
 
 users = []  # Hold all user records
@@ -11,6 +13,17 @@ class UserModel(BaseModel):
         self.email = email
         self.username = username
         self.password = password
+
+    @property
+    def password(self):
+        return None
+
+    @password.setter
+    def password(self, passw):
+        self.password = generate_password_hash(passw)
+
+    def check_password(self, password_value):
+        return check_password_hash(self.password, password_value)
 
     def save(self):
         users.append(self)
