@@ -7,6 +7,6 @@ def create_app(config_setting):
     app = Flask(__name__)
     app.register_blueprint(auth)
     app.config.from_object(APP_CONFIG[
-        config_setting])
+        config_setting.strip().lower()])
 
     return app
