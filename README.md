@@ -1,7 +1,11 @@
 ## stackS-api
 
 [![Build Status](https://travis-ci.org/hogum/stackS-api.svg?branch=develop)](https://travis-ci.org/hogum/stackS-api)
-[![Coverage Status](https://coveralls.io/repos/github/hogum/stackS-api/badge.svg)](https://coveralls.io/github/hogum/stackS-api)
+[![Coverage Status](https://coveralls.io/repos/github/hogum/stackS-api/badge.svg?branch=develop)](https://coveralls.io/github/hogum/stackS-api?branch=develop)
+[![Maintainability](https://api.codeclimate.com/v1/badges/026466004435ebedbdf8/maintainability)](https://codeclimate.com/github/hogum/stackS-api/maintainability)
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/faa1bb2518cd81a3e91d)
+
 
 stackS is a platform where human beings can ask questions and provide answers to present questions.
 
