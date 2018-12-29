@@ -1,4 +1,3 @@
-import flask
 from flask import Blueprint, request, make_response, jsonify
 
 from v1.utils.helper import verify_email, validate_json_header
