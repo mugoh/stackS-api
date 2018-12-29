@@ -12,15 +12,15 @@ class UserModel(BaseModel):
         super().__init__(users)
         self.email = email
         self.username = username
-        self.password = password
+        self._password = password
 
     @property
     def password(self):
-        return None
+        return 'None'
 
     @password.setter
     def password(self, passw):
-        self.password = generate_password_hash(passw)
+        self._password = generate_password_hash(passw)
 
     def check_password(self, password_value):
         return check_password_hash(self.password, password_value)
@@ -32,7 +32,6 @@ class UserModel(BaseModel):
 
         return {'username': self.username,
                 'email': self.email,
-                'password': self.password
                 }
 
     def __repr__(self):
@@ -49,7 +48,7 @@ class UserModel(BaseModel):
     def get_by_email(cls, email):
 
         return [user for user in users
-                if getattr(user, 'email') == email][0]
+                if getattr(user, 'email') == email]
 
     @classmethod
     def get_by_id(cls, id):

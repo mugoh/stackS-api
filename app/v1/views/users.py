@@ -31,7 +31,7 @@ def register_user():
                       password=password).save()
 
             return make_response(jsonify({
-                'Status': "Success"
+                "Status": "Success"
             })), 201
 
         # For incorrect user details
