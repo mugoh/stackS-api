@@ -12,8 +12,9 @@ before_script:
 - chmod +x ./cc-test-reporter
 - ./cc-test-reporter before-build
 script:
-- pytest -vv --cov=app/api/v1
+- coverage run --source=app/v1 -m pytest tests
 
 after_success:
 - coveralls
+- coverage report -m
 - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
