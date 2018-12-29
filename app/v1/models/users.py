@@ -12,7 +12,7 @@ class UserModel(BaseModel):
         super().__init__(users)
         self.email = email
         self.username = username
-        self._password = password
+        self.password = password
 
     @property
     def password(self):
