@@ -24,7 +24,7 @@ def register_user():
 
             if UserModel.get_by_email(email):
                 return make_response(jsonify(
-                    "Account exists. Maybe logging in?")), 409
+                    "Account exists. Maybe log in?")), 409
 
             UserModel(username=username,
                       email=email,

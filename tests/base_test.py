@@ -1,6 +1,5 @@
 import unittest
 from app import create_app
-from flask import jsonify
 import json
 
 
@@ -11,10 +10,10 @@ class BaseTestCase(unittest.TestCase):
         self.client = self.app.test_client()
 
         # create new user
-        self.user_data = jsonify(
+        self.user_data = json.dumps(dict(
             username="Domesticable Cow",
             email="cow@mammals.milkable",
-            password="pa55word")
+            password="pa55word"))
 
         response = self.client.post('/api/v1/auth/register',
                                     data=self.user_data,
