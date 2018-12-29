@@ -67,3 +67,16 @@ class AuthTestCases(BaseTestCase):
                 Please provide a valid json header\t"
         self.assertEqual(res, res_msg,
                          msg="Fails to validate json headers")
+
+    def test_get_users_records_are_instances(self):
+        # Unneccessary
+        response = self.client.get('/api/v1/auth/register',
+                                   data=self.user_data,
+                                   content_type='application/json')
+        res = json.loads(response.data.decode())
+
+        # Instances converted  to dict
+        self.assertEqual(res[0].get('username'), (res[0]['username']),
+                         msg="Fails to store user records as instances")
+
+        self.assertEqual(response.status_code, 200)
