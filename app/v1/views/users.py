@@ -1,7 +1,7 @@
 from flask import Blueprint, request, make_response, jsonify
 
-from v1.utils.helper import verify_email, validate_json_header
-from v1.models.users import UserModel
+from app.v1.utils.helper import verify_email, validate_json_header
+from app.v1.models.users import UserModel
 
 auth = Blueprint('auth', __name__, url_prefix='api/v1/auth/')
 

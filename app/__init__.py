@@ -1,5 +1,5 @@
 from flask import Flask
-from v1.views.users import auth
+from app.v1.views.users import auth
 from instance.config import APP_CONFIG
 
 

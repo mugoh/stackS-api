@@ -1,7 +1,7 @@
 import re
 from functools import wraps
 from flask import request, make_response, jsonify
-from werkzeug.security import BadRequest
+from werkzeug.exceptions import BadRequest
 
 
 def verify_email(email):
