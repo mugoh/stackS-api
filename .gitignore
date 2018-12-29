@@ -41,6 +41,7 @@ htmlcov/
 .coverage
 .coverage.*
 .cache
+cc-test-reporter
 nosetests.xml
 coverage.xml
 *.cover
@@ -57,7 +58,6 @@ local_settings.py
 db.sqlite3
 
 # Flask stuff:
-instance/
 .webassets-cache
 
 # Scrapy stuff:
