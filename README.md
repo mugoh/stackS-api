@@ -1,5 +1,8 @@
 ## stackS-api
 
+[![Build Status](https://travis-ci.org/hogum/stackS-api.svg?branch=develop)](https://travis-ci.org/hogum/stackS-api)
+[![Coverage Status](https://coveralls.io/repos/github/hogum/stackS-api/badge.svg?branch=develop)](https://coveralls.io/github/hogum/stackS-api?branch=develop)
+
 stackS is a platform where human beings can ask questions and provide answers to present questions.
 
 ### What it can do
