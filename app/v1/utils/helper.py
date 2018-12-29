@@ -15,11 +15,11 @@ def verify_email(email):
 def validate_json_header(f):
     @wraps(f)
     def wrapper(*args, **kwargs):
-        try:
-            request.json
-        except BadRequest as e:
+        if not request.json:
+            """   request.json
+           except BadRequest as e:"""
             return make_response(jsonify(
                 "Oops! That didn't work\
-                Please provide a valid json header\t" + e)), 400
+                Please provide a valid json header\t")), 400
         return f(*args, **kwargs)
     return wrapper
