@@ -16,7 +16,7 @@ class UserModel(BaseModel):
 
     @property
     def password(self):
-        return 'None'
+        return None
 
     @password.setter
     def password(self, passw):
@@ -31,6 +31,7 @@ class UserModel(BaseModel):
     def dictify(self):
 
         return {'username': self.username,
+                'password': self.password,
                 'email': self.email,
                 }
 
@@ -58,7 +59,7 @@ class UserModel(BaseModel):
     def get_by_id(cls, id):
 
         found_user = [user for user in users
-                      if getattr(user, 'id') == id][0]
+                      if getattr(user, 'id') == id]
 
         return found_user[0] if found_user else None
 
