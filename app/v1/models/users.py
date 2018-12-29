@@ -41,20 +41,26 @@ class UserModel(BaseModel):
     @classmethod
     def get_by_name(cls, title):
 
-        return [user for user in users
-                if getattr(user, 'username') == title][0]
+        found_user = [user for user in users
+                      if getattr(user, 'username') == title]
+
+        return found_user[0] if found_user else None
 
     @classmethod
     def get_by_email(cls, email):
 
-        return [user for user in users
-                if getattr(user, 'email') == email]
+        found_user = [user for user in users
+                      if getattr(user, 'email') == email]
+
+        return found_user[0] if found_user else None
 
     @classmethod
     def get_by_id(cls, id):
 
-        return [user for user in users
-                if getattr(user, 'id') == id][0]
+        found_user = [user for user in users
+                      if getattr(user, 'id') == id][0]
+
+        return found_user[0] if found_user else None
 
     @classmethod
     def get_all_users(cls):
