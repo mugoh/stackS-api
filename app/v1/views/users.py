@@ -2,6 +2,7 @@ from flask import Blueprint, request, make_response, jsonify
 
 from app.v1.utils.helper import verify_email, validate_json_header
 from app.v1.models.users import UserModel
+import random
 
 auth = Blueprint('auth', __name__, url_prefix='/api/v1/auth/')
 
@@ -25,6 +26,10 @@ def register_user():
             if UserModel.get_by_email(email):
                 return make_response(jsonify(
                     "Account exists. Maybe log in?")), 409
+            if UserModel.get_by_name(username):
+                return make_response((jsonify(
+                    "OOpsy!Username exists", "Try ",
+                    username + str(random.randint(0, 20))))), 409
 
             UserModel(username=username,
                       email=email,
