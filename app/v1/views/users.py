@@ -1,8 +1,8 @@
-from flask import Blueprint, request, make_response, jsonify
+from flask import Blueprint, request, make_response, jsonify, session
+import random
 
 from app.v1.utils.helper import verify_email, validate_json_header
 from app.v1.models.users import UserModel
-import random
 
 auth = Blueprint('auth', __name__, url_prefix='/api/v1/auth/')
 
@@ -45,3 +45,30 @@ def register_user():
             \nEnsure password is has at least 5 characters\nCool?")), 400
 
     return make_response(jsonify(UserModel.get_all_users()))
+
+
+@auth.route('login', methods=['POST'])
+@validate_json_header
+def login_user():
+    data = request.get_json()
+    email, password = data.get('email'), data.get('password')
+
+    if not verify_email(email):
+        return make_response(jsonify(
+            "Please Provide a valid email. Cool?")), 400
+
+    user = UserModel.get_by_email(email)
+
+    if not user:
+        return make_response(jsonify({
+            "Status": "Fail",
+            'msg': "Account not known. Maybe register?"}))
+    elif not user.check_password(password):
+        return make_response(jsonify(
+            "Incorrect password. Please give me the right thing, okay?")), 400
+
+    session['logged_in'] = True
+
+    return make_response(jsonify({
+        "Status": "Success",
+    })), 201
