@@ -36,8 +36,8 @@ class UserModel(BaseModel):
                 }
 
     def __repr__(self):
-        return '{username} {email}'.format(
-            self.dictify())
+        return '{username} {email}'.format(**
+                                           self.dictify())
 
     @classmethod
     def get_by_name(cls, title):

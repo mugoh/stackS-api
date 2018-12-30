@@ -1,5 +1,6 @@
 from flask import Blueprint, request, make_response, jsonify, session
 import random
+import jwt_extended
 
 from app.v1.utils.helper import verify_email, validate_json_header
 from app.v1.models.users import UserModel
@@ -71,4 +72,5 @@ def login_user():
 
     return make_response(jsonify({
         "Status": "Success",
+        "Logged in as": repr(user)
     })), 201
