@@ -64,7 +64,7 @@ def login_user():
     if not user:
         return make_response(jsonify({
             "Status": "Fail",
-            'msg': "Account not known. Maybe register?"}))
+            'msg': "Account not known. Maybe register?"})), 400
     elif not user.check_password(password):
         return make_response(jsonify(
             "Incorrect password. Please give me the right thing, okay?")), 400
