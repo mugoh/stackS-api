@@ -126,3 +126,17 @@ class AuthTestCases(BaseTestCase):
                                     content_type='application/json')
         self.assertEqual(response.status_code, 400,
                          msg="Fails. Logs in user with unknown email")
+
+    def test_logged_in_user_can_log_out(self):
+
+        self.client.post('/api/v1/auth/login',
+                         data=self.user_data,
+                         content_type='application/json')
+
+        response = self.client.delete('/api/v1/auth/logout',
+                                      headers=self.auth_header,
+                                      data=self.user_data,
+                                      content_type='application/json')
+        print(json.dumps(response.data.decode()))
+        self.assertEqual(response.status_code, 201,
+                         msg="Fails to logout user")

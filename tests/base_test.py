@@ -19,3 +19,9 @@ class BaseTestCase(unittest.TestCase):
                                     data=self.user_data,
                                     content_type='application/json')
         self.new_user = json.loads(response.data.decode())
+
+        login_response = self.client.post('/api/v1/auth/login',
+                                          data=self.user_data,
+                                          content_type='application/json')
+        user = json.loads(login_response.data.decode()).get("Token")
+        self.auth_header = {"Authorization": "Bearer " + user}
