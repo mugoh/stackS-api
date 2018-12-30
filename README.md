@@ -53,9 +53,10 @@ $ flask run
 
 ##### Authorization Endpoints
 
-Method | Enpoint | Functionality
+Method | Endpoint | Functionality
 --- | --- |---
-POST | `api/v1/auth/users` | Re gister new User
+POST | `api/v1/auth/register` | Register new User
+POST | `api/v1/auth/login` | Login registered User
 PUT | `api/v1/auth/users/user_id` | Update user details
 DELETE | `api/v1/auth/users/user_id` | Delete a user account
 GET | `api/v1/auth/users` | Get all registered users
