@@ -1,7 +1,7 @@
 from flask import Blueprint, request, make_response, jsonify, session
 import random
 from flask_jwt_extended import (
-    jwt_required, create_access_token, get_jwt_identity, get_raw_jti)
+    jwt_required, create_access_token, get_jwt_identity, get_raw_jwt)
 
 from app.v1.utils.helper import verify_email, validate_json_header
 from app.v1.models.users import UserModel
