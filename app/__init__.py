@@ -7,7 +7,7 @@ from flask_jwt_extended import JWTManager
 def create_app(config_setting):
     app = Flask(__name__)
     app.register_blueprint(auth)
-    app = JWTManager(app)
+    jwt = JWTManager(app)
     app.config.from_object(APP_CONFIG[
         config_setting.strip().lower()])
 
