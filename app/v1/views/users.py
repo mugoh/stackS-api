@@ -1,6 +1,6 @@
 from flask import Blueprint, request, make_response, jsonify, session
 import random
-import jwt_extended
+from flask_jwt_extended import jwt_required, create_access_token
 
 from app.v1.utils.helper import verify_email, validate_json_header
 from app.v1.models.users import UserModel
@@ -29,7 +29,7 @@ def register_user():
                     "Account exists. Maybe log in?")), 409
             if UserModel.get_by_name(username):
                 return make_response((jsonify(
-                    "OOpsy!Username exists", "Try ",
+                    "Oopsy!Username exists", "Try ",
                     username + str(random.randint(0, 20))))), 409
 
             UserModel(username=username,
@@ -53,6 +53,7 @@ def register_user():
 def login_user():
     data = request.get_json()
     email, password = data.get('email'), data.get('password')
+    username = data.get('username')
 
     if not verify_email(email):
         return make_response(jsonify(
@@ -67,10 +68,12 @@ def login_user():
     elif not user.check_password(password):
         return make_response(jsonify(
             "Incorrect password. Please give me the right thing, okay?")), 400
+    user_token = create_access_token(identity=username)
 
     session['logged_in'] = True
 
     return make_response(jsonify({
         "Status": "Success",
-        "Logged in as": repr(user)
+        "Logged in as": repr(user),
+        "Token": user_token
     })), 201
