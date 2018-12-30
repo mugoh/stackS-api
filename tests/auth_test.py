@@ -56,7 +56,7 @@ class AuthTestCases(BaseTestCase):
                                     content_type='application/json')
 
         self.assertTrue(response.status_code == 409,
-                        msg="Fails. Registers user with invalid email")
+                        msg="Fails. Registers user with existing username")
 
     def test_send_request_with_invalid_json(self):
         response = self.client.post('/api/v1/auth/register',

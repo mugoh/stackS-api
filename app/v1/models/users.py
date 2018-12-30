@@ -42,10 +42,10 @@ class UserModel(BaseModel):
     @classmethod
     def get_by_name(cls, title):
 
-        found_user = [user for user in users
-                      if getattr(user, 'username') == title]
+        user = [user for user in users
+                if getattr(user, 'username') == title]
 
-        return found_user[0] if found_user else None
+        return user[0] if user else None
 
     @classmethod
     def get_by_email(cls, email):
