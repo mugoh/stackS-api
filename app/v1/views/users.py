@@ -1,12 +1,14 @@
 from flask import Blueprint, request, make_response, jsonify, session
 import random
 from flask_jwt_extended import (
-    jwt_required, create_access_token, get_jwt_identity)
+    jwt_required, create_access_token, get_jwt_identity, get_raw_jwt)
 
 from app.v1.utils.helper import verify_email, validate_json_header
 from app.v1.models.users import UserModel
 
 auth = Blueprint('auth', __name__, url_prefix='/api/v1/auth/')
+
+blacklisted_tokens = set()
 
 
 @auth.route('register', methods=['POST', 'GET'])
@@ -78,3 +80,16 @@ def login_user():
         "Logged in as": repr(user),
         "Token": user_token
     })), 201
+
+
+@auth.route('logout', methods=['DELETE'])
+@validate_json_header
+@jwt_required
+def logout_user():
+    data = request.get_json()
+
+    jti = get_raw_jwt()['jti']
+
+    blacklisted_tokens.add(jti)
+    return make_response(jsonify(
+        "Logout successful")), 201
