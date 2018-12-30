@@ -7,6 +7,8 @@ class BaseConfig:
     SECRET_KEY = os.environ.get('SECRET_KEY',
                                 os.urandom(16))
     CSRF_ENABLED = True
+    JWT_SECRET_KET = os.environ.get('JWT_SECRET_KEY',
+                                    os.urandom(25))
 
 
 class DevelopmentConfig(BaseConfig):
