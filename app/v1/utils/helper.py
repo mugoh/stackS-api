@@ -1,7 +1,6 @@
 import re
-from functools import wraps
+from functools import wraps, partial
 from flask import request, make_response, jsonify
-from werkzeug.exceptions import BadRequest
 
 
 def verify_email(email):
@@ -23,3 +22,20 @@ def validate_json_header(f):
                 Please provide a valid json header\t")), 400
         return f(*args, **kwargs)
     return wrapper
+
+
+"""
+def verify_email(f, email):
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+        email_regex = re.compile(r"[^@\\s]+@[^@\\s]+\\.[a-zA-Z0-9]+$")
+
+        if email_regex.match(email):
+            return f(*args, **kwargs)
+        else:
+            return make_response(jsonify("Email format unkown")), 400
+    return wrapper
+
+
+real_email = partial(verify_email)
+"""

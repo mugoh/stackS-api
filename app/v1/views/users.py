@@ -1,6 +1,7 @@
 from flask import Blueprint, request, make_response, jsonify, session
 import random
-from flask_jwt_extended import jwt_required, create_access_token
+from flask_jwt_extended import (
+    jwt_required, create_access_token, get_jwt_identity)
 
 from app.v1.utils.helper import verify_email, validate_json_header
 from app.v1.models.users import UserModel
@@ -18,8 +19,8 @@ def register_user():
     """
     if request.method == 'POST':
         data = request.get_json()
-        email = data['email']
-        password = data['password']
+        email = data.get('email')
+        password = data.get('password')
         username = data.get('username')
 
         if verify_email(email) and len(password) > 6:
