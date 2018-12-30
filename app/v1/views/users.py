@@ -87,11 +87,7 @@ def login_user():
 @jwt_required
 def logout_user():
     data = request.get_json()
-    email = data.get('email')
 
-    if not email:
-        return make_response(jsonify(
-            "Missing an email")), 400
     jti = get_raw_jwt()['jti']
 
     blacklisted_tokens.add(jti)
