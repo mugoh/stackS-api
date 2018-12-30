@@ -78,3 +78,14 @@ def login_user():
         "Logged in as": repr(user),
         "Token": user_token
     })), 201
+
+
+@auth.route('logout', methods=['DELETE'])
+@validate_json_header
+def logout_user():
+    data = request.get_json()
+    email = data.get('email')
+
+    if not email:
+        return make_response(jsonify(
+            "Missing an email")), 400
