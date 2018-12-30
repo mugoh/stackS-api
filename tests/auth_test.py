@@ -137,6 +137,5 @@ class AuthTestCases(BaseTestCase):
                                       headers=self.auth_header,
                                       data=self.user_data,
                                       content_type='application/json')
-        print(json.dumps(response.data.decode()))
         self.assertEqual(response.status_code, 201,
                          msg="Fails to logout user")
