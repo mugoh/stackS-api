@@ -80,3 +80,11 @@ class AuthTestCases(BaseTestCase):
                          msg="Fails to store user records as instances")
 
         self.assertEqual(response.status_code, 200)
+
+    def test_login_registered_user(self):
+        response = self.client.post('/api/v1/auth/register',
+                                    data=self.user_data,
+                                    content_type='application/json')
+
+        self.assertEqual(response.status_code, 201,
+                         msg="Fails to login registered user")
