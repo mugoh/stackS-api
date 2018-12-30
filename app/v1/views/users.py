@@ -1,8 +1,9 @@
-from flask import Blueprint, request, make_response, jsonify
+from flask import Blueprint, request, make_response, jsonify, session
+import random
+from flask_jwt_extended import jwt_required, create_access_token
 
 from app.v1.utils.helper import verify_email, validate_json_header
 from app.v1.models.users import UserModel
-import random
 
 auth = Blueprint('auth', __name__, url_prefix='/api/v1/auth/')
 
@@ -28,7 +29,7 @@ def register_user():
                     "Account exists. Maybe log in?")), 409
             if UserModel.get_by_name(username):
                 return make_response((jsonify(
-                    "OOpsy!Username exists", "Try ",
+                    "Oopsy!Username exists", "Try ",
                     username + str(random.randint(0, 20))))), 409
 
             UserModel(username=username,
@@ -45,3 +46,34 @@ def register_user():
             \nEnsure password is has at least 5 characters\nCool?")), 400
 
     return make_response(jsonify(UserModel.get_all_users()))
+
+
+@auth.route('login', methods=['POST'])
+@validate_json_header
+def login_user():
+    data = request.get_json()
+    email, password = data.get('email'), data.get('password')
+    username = data.get('username')
+
+    if not verify_email(email):
+        return make_response(jsonify(
+            "Please Provide a valid email. Cool?")), 400
+
+    user = UserModel.get_by_email(email)
+
+    if not user:
+        return make_response(jsonify({
+            "Status": "Fail",
+            'msg': "Account not known. Maybe register?"})), 400
+    elif not user.check_password(password):
+        return make_response(jsonify(
+            "Incorrect password. Please give me the right thing, okay?")), 400
+    user_token = create_access_token(identity=username)
+
+    session['logged_in'] = True
+
+    return make_response(jsonify({
+        "Status": "Success",
+        "Logged in as": repr(user),
+        "Token": user_token
+    })), 201

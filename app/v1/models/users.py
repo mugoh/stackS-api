@@ -23,7 +23,7 @@ class UserModel(BaseModel):
         self._password = generate_password_hash(passw)
 
     def check_password(self, password_value):
-        return check_password_hash(self.password, password_value)
+        return check_password_hash(self._password, password_value)
 
     def save(self):
         users.append(self)
@@ -36,8 +36,8 @@ class UserModel(BaseModel):
                 }
 
     def __repr__(self):
-        return '{username} {email}'.format(
-            self.dictify())
+        return '{username} {email}'.format(**
+                                           self.dictify())
 
     @classmethod
     def get_by_name(cls, title):

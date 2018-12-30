@@ -20,7 +20,7 @@ class AuthTestCases(BaseTestCase):
 
         self.assertEqual(response.status_code, 200)
 
-    def test_registrer_already_registered_user(self):
+    def test_register_already_registered_user(self):
 
         response = self.client.post('/api/v1/auth/register',
                                     data=self.user_data,
@@ -80,3 +80,49 @@ class AuthTestCases(BaseTestCase):
                          msg="Fails to store user records as instances")
 
         self.assertEqual(response.status_code, 200)
+
+    def test_login_registered_user(self):
+        response = self.client.post('/api/v1/auth/login',
+                                    data=self.user_data,
+                                    content_type='application/json')
+
+        self.assertEqual(response.status_code, 201,
+                         msg="Fails to login registered user")
+
+    def test_login_with_invalid_email(self):
+        user_data = json.dumps(dict(
+            username="Domesticable Cow",
+            email="cow@mammals",
+            password="pa55word"))
+
+        response = self.client.post('/api/v1/auth/login',
+                                    data=user_data,
+                                    content_type='application/json')
+
+        self.assertTrue(response.status_code == 400,
+                        msg="Fails. Logs in user with invalid email")
+
+    def test_login_with_incorrect_password(self):
+        user_data = json.dumps(dict(
+            username="Domesticable Cow",
+            email="cow@mammals.milkable",
+            password="password"))
+
+        response = self.client.post('/api/v1/auth/login',
+                                    data=user_data,
+                                    content_type='application/json')
+
+        self.assertTrue(response.status_code == 400,
+                        msg="Fails. Logs in user with invalid password")
+
+    def test_login_with_unregistered_email(self):
+        user_data = json.dumps(dict(
+            username="Domesticable Cow",
+            email="cow@mammals.alien",
+            password="pa55word"))
+
+        response = self.client.post('/api/v1/auth/login',
+                                    data=user_data,
+                                    content_type='application/json')
+        self.assertEqual(response.status_code, 400,
+                         msg="Fails. Logs in user with unknown email")
