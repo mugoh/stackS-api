@@ -84,6 +84,7 @@ def login_user():
 
 @auth.route('logout', methods=['DELETE'])
 @validate_json_header
+@jwt_required
 def logout_user():
     data = request.get_json()
     email = data.get('email')
@@ -91,7 +92,7 @@ def logout_user():
     if not email:
         return make_response(jsonify(
             "Missing an email")), 400
-    jti = get_raw_jti()['jti']
+    jti = get_raw_jwt()['jti']
 
     blacklisted_tokens.add(jti)
     return make_response(jsonify(
