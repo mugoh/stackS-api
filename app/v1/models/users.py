@@ -56,13 +56,5 @@ class UserModel(BaseModel):
         return found_user[0] if found_user else None
 
     @classmethod
-    def get_by_id(cls, id):
-
-        found_user = [user for user in users
-                      if getattr(user, 'id') == id]
-
-        return found_user[0] if found_user else None
-
-    @classmethod
     def get_all_users(cls):
         return [user.dictify() for user in users]
