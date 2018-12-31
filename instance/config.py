@@ -5,10 +5,12 @@ class BaseConfig:
     DEBUG = False
     TESTING = False
     SECRET_KEY = os.environ.get('SECRET_KEY',
-                                os.urandom(16))
+                                b'\xc2;F]l\x046t\xfe\x08'
+                                )
     CSRF_ENABLED = True
     JWT_SECRET_KET = os.environ.get('JWT_SECRET_KEY',
-                                    os.urandom(25))
+                                    b'\xa3$\x0bm\xae\xbbmd\x12\x8f'
+                                    )
 
 
 class DevelopmentConfig(BaseConfig):
