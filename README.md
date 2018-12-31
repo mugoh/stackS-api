@@ -47,7 +47,8 @@ $ flask run
 ```
 
 ### Project Dependencies
-- [Flask](http://flask.pocoo.org/)
+- [Flask](http://flask.pocoo.org/) The application web framework
+- [Flask Jwt Extended](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=2ahUKEwjgguHwzcnfAhVCtYsKHbtQA2UQFjAAegQIBhAC&url=https%3A%2F%2Fflask-jwt-extended.readthedocs.io%2Fen%2Flatest%2F&usg=AOvVaw0uPgi1JQ_gK-R45GCzqDPJ) For authenticationof protected endpoints
 
 ### Endpoints
 
